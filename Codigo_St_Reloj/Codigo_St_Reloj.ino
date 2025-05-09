@@ -32,8 +32,8 @@ void setup() {
   Serial.begin(9600);
   rtc.setTime(30, 38, 11, 25, 4, 2025);  //SETEO UNA HORA ESPECIFICA, SEGUNDOS, MINUTOS, HORAS, DIA, MES, AÑO
   Serial.println(F("OLED test"));
-  pinMode(BOTON1, INPUT_PULLUP);
-  pinMode(BOTON2, INPUT_PULLUP);
+  pinMode(BOTON1, INPUT);
+  pinMode(BOTON2, INPUT);
   u8g2.begin();              //INICIALIZO EL OLED
   dht.begin();               //INICIALIZO EL SENSOR DE TEMPERATURA
   hora = rtc.getHour();      //ME GUARDO LA HORA QUE ESTABA SETEADA
@@ -54,6 +54,8 @@ void Maquina(float t, int EstadoBoton1, int EstadoBoton2) {
   sprintf(stringt, "%.2f", t);  // HAGO QUE LA TEMPERATURA SE PUEDA GUARDAR COMO UN STRING
   switch (estado) {
     case P1:
+      hora = rtc.getHour();
+      minute = rtc.getMinute();
       sprintf(stringtiempo, "%02d:%02d  ", hora, minute);  //HAGO QUE EL HORARIO SE PUEDA GUARDAR COMO UN STRING TENIENDO LOS DOS VALORES
       u8g2.clearBuffer();                                  //REINICIO EL OLED PARA QUE NO SE VEA NADA
       u8g2.setFont(u8g2_font_ncenB08_tr);                  //LE PONGO UNA FUENTE DE TEXTO Y TAMAÑO, COMO SI FUERA EL COMIC SANS
@@ -77,6 +79,8 @@ void Maquina(float t, int EstadoBoton1, int EstadoBoton2) {
       }
       break;
     case P2:
+      hora = rtc.getHour();
+      minute = rtc.getMinute();
       sprintf(stringtiempo, "%02d:%02d  ", hora, minute);
       u8g2.clearBuffer();
       u8g2.drawStr(15, 30, "Hora:");
