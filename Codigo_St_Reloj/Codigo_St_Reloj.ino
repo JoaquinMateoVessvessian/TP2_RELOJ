@@ -54,9 +54,7 @@ void Maquina(float t, int EstadoBoton1, int EstadoBoton2) {
   sprintf(stringt, "%.2f", t);  // HAGO QUE LA TEMPERATURA SE PUEDA GUARDAR COMO UN STRING
   switch (estado) {
     case P1:
-      hora = rtc.getHour();
-      minute = rtc.getMinute();
-      sprintf(stringtiempo, "%02d:%02d  ", hora, minute);  //HAGO QUE EL HORARIO SE PUEDA GUARDAR COMO UN STRING TENIENDO LOS DOS VALORES
+      sprintf(stringtiempo, "%02d:%02d  ", rtc.getHour(), rtc.getMinute());  //HAGO QUE EL HORARIO SE PUEDA GUARDAR COMO UN STRING TENIENDO LOS DOS VALORES
       u8g2.clearBuffer();                                  //REINICIO EL OLED PARA QUE NO SE VEA NADA
       u8g2.setFont(u8g2_font_ncenB08_tr);                  //LE PONGO UNA FUENTE DE TEXTO Y TAMAÑO, COMO SI FUERA EL COMIC SANS
       u8g2.drawStr(15, 15, "Temp:");
@@ -79,9 +77,7 @@ void Maquina(float t, int EstadoBoton1, int EstadoBoton2) {
       }
       break;
     case P2:
-      hora = rtc.getHour();
-      minute = rtc.getMinute();
-      sprintf(stringtiempo, "%02d:%02d  ", hora, minute);
+      sprintf(stringtiempo, "%02d:%02d  ", rtc.getHour(), rtc.getMinute());
       u8g2.clearBuffer();
       u8g2.drawStr(15, 30, "Hora:");
       u8g2.drawStr(60, 30, stringtiempo);  //PONGO EL HORARIO EN EL OLED
@@ -104,6 +100,7 @@ void Maquina(float t, int EstadoBoton1, int EstadoBoton2) {
         }
         estado = P2;
       }
+      rtc.setTime(0, minute, hora, 25, 4, 2025);
       if (EstadoBoton1 == LOW && EstadoBoton2 == LOW) {
         estado = ESPERA2;
       }
@@ -118,6 +115,7 @@ void Maquina(float t, int EstadoBoton1, int EstadoBoton2) {
         }
         estado = P2;
       }
+      rtc.setTime(0, minute, hora, 25, 4, 2025);
       if (EstadoBoton1 == LOW && EstadoBoton2 == LOW) {
         estado = ESPERA2;
       }
